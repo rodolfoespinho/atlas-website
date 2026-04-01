@@ -22,4 +22,4 @@ Hosted on [Vercel](https://vercel.com). Auto-deploy on push to `main`.
 
 ## Contacto
 
-info@atlas.pt
+geral@atlas-web.pt
