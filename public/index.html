@@ -16,6 +16,7 @@
 <meta property="og:locale" content="pt_PT">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"ATLAS — Engenharia Criativa","url":"https://www.atlas-web.pt","description":"Estúdio de engenharia criativa especializado em soluções digitais, plataformas SaaS e sistemas inteligentes.","foundingDate":"2024","areaServed":["PT","EU"]}</script>
+<script defer src="/_vercel/insights/script.js"></script>
 <link rel="preload" as="image" href="img/hero-bg.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -421,7 +422,7 @@ body:not(.light) .hero-bg{opacity:1}
 .work-featured .work-card-img{aspect-ratio:16/7}
 
 /* Grid 3 */
-.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;align-items:stretch}
+.work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;align-items:stretch}
 .work-grid-item{
   opacity:0;transform:translateY(32px);
   transition:opacity .8s var(--eo),transform .9s var(--eo);
@@ -430,6 +431,7 @@ body:not(.light) .hero-bg{opacity:1}
 .work-grid-item.visible{opacity:1;transform:none}
 .work-grid-item:nth-child(2){transition-delay:.1s}
 .work-grid-item:nth-child(3){transition-delay:.2s}
+.work-grid-item:nth-child(4){transition-delay:.3s}
 .work-grid .work-card{height:100%;display:flex;flex-direction:column}
 .work-grid .work-card-img{aspect-ratio:4/3;flex-shrink:0}
 .work-grid .work-card-body{flex:1;display:flex;flex-direction:column;padding:clamp(1rem,2vw,1.5rem)}
@@ -437,6 +439,39 @@ body:not(.light) .hero-bg{opacity:1}
 .work-grid .work-card-desc{font-size:.78rem;line-height:1.5;margin-top:.4rem}
 .work-grid .work-card-url{display:inline-flex;margin-top:.75rem;font-size:.45rem}
 .work-card-url.soon{color:var(--cm);pointer-events:none}
+
+/* Placeholder card (sem imagem) */
+.work-card-img--placeholder{background:linear-gradient(135deg,#0f0e0d 0%,#1c1207 55%,#0a0905 100%)}
+.work-card-img--placeholder::after{background:none}
+.work-card-initials{
+  position:absolute;inset:0;z-index:3;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--fd);font-weight:800;
+  font-size:clamp(3.5rem,7vw,6rem);letter-spacing:-.05em;
+  color:rgba(252,99,24,.1);
+  pointer-events:none;
+}
+
+/* Hero scroll indicator */
+.hero-scroll{
+  position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.55rem;
+  opacity:0;animation:fadeUp .7s var(--eo) 2.6s forwards;
+  z-index:3;
+}
+.hero-scroll-label{
+  font-family:var(--fm);font-size:.4rem;letter-spacing:.35em;text-transform:uppercase;
+  color:var(--cm);
+}
+.hero-scroll-line{
+  width:1px;height:28px;
+  background:linear-gradient(to bottom,rgba(252,99,24,.7),transparent);
+  animation:scrollPulse 2.2s ease-in-out 2.6s infinite;
+}
+@keyframes scrollPulse{
+  0%,100%{opacity:0;transform:scaleY(.3);transform-origin:top}
+  40%,65%{opacity:1;transform:scaleY(1);transform-origin:top}
+}
 
 /* ─── ABOUT ─── */
 .about{
@@ -551,15 +586,51 @@ body:not(.light) .hero-bg{opacity:1}
 .contact-link:hover svg{transform:translateX(3px)}
 
 /* ─── FOOTER ─── */
-footer{
-  border-top:1px solid var(--stroke);
-  padding:2rem var(--gut);
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+footer{background:var(--sf);border-top:1px solid var(--stroke);transition:background .35s,border-color .35s}
+.footer-inner{max-width:var(--max);margin:0 auto;padding:clamp(3rem,6vw,5rem) var(--gut)}
+.footer-top{
+  display:grid;grid-template-columns:1.4fr 1fr 1fr;
+  gap:clamp(2rem,5vw,4rem);
+  padding-bottom:clamp(2rem,4vw,3rem);
+  border-bottom:1px solid var(--stroke);
+  margin-bottom:1.5rem;
   transition:border-color .35s;
 }
-.footer-copy{font-family:var(--fm);font-size:.44rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cdd)}
-.footer-email{font-family:var(--fm);font-size:.44rem;letter-spacing:.06em;color:var(--cm);transition:color .3s}
-.footer-email:hover{color:var(--gd)}
+.footer-logo{display:block;margin-bottom:.7rem}
+.footer-logo svg{height:clamp(.7rem,1.3vw,.9rem);width:auto;fill:var(--cr);transition:fill .3s}
+.footer-logo:hover svg{fill:var(--gd)}
+.footer-tagline{font-family:var(--fm);font-size:.42rem;letter-spacing:.3em;text-transform:uppercase;color:var(--cm)}
+.footer-col-label{
+  font-family:var(--fm);font-size:.42rem;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:var(--cm);margin-bottom:1rem;
+  display:flex;align-items:center;gap:.5rem;
+}
+.footer-col-label::before{content:'';width:10px;height:1px;background:var(--gd);flex-shrink:0}
+.footer-nav a,.footer-contact-links a{
+  display:block;
+  font-family:var(--fd);font-size:.82rem;font-weight:400;
+  color:var(--cd);margin-bottom:.5rem;
+  transition:color .3s;
+}
+.footer-nav a:hover,.footer-contact-links a:hover{color:var(--gd)}
+.footer-ig{display:inline-flex;align-items:center;gap:.4rem}
+.footer-ig svg{width:11px;height:11px;stroke:currentColor;stroke-width:1.4;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.footer-bottom{
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:.5rem;
+}
+.footer-copy{font-family:var(--fm);font-size:.42rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cdd)}
+.footer-location{font-family:var(--fm);font-size:.42rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cdd)}
+
+/* Reset: nav {} global rule não deve afectar o footer nav */
+footer nav{
+  position:static;z-index:auto;
+  padding:0;display:block;
+  background:none;box-shadow:none;
+  -webkit-backdrop-filter:none;backdrop-filter:none;
+  transition:none;
+}
 
 /* ─── BACK TO TOP ─── */
 #btt{
@@ -628,9 +699,13 @@ footer{
   .about-caps{margin-top:0}
   .wa-fab{bottom:1.5rem;right:unset;left:1.5rem}
   #btt{bottom:1.5rem;right:1.5rem}
+  .hero-scroll{display:none}
+  .footer-top{grid-template-columns:1fr 1fr}
+  .footer-brand{grid-column:1 / -1}
 }
 @media(max-width:480px){
   .work-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr}
 }
 
 /* ─── REDUCED MOTION ─── */
@@ -718,6 +793,10 @@ footer{
       <span>B2C</span><span>B2B</span><span>B2GOV</span>
     </div>
   </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <span class="hero-scroll-line"></span>
+    <span class="hero-scroll-label">scroll</span>
+  </div>
 </section>
 
 <!-- ═══ MANIFESTO ═══ -->
@@ -787,7 +866,7 @@ footer{
         </a>
       </div>
       <div class="work-grid-item" data-reveal>
-        <a class="work-card" href="#" aria-label="Viamar">
+        <a class="work-card" href="https://www.viamar-berlenga.com" target="_blank" rel="noopener noreferrer" aria-label="Viamar">
           <div class="work-card-img">
             <img src="img/viamar.png" alt="Viamar" loading="lazy">
           </div>
@@ -795,7 +874,20 @@ footer{
             <div class="work-card-tag">B2C · Turismo</div>
             <h3 class="work-card-name">Viamar</h3>
             <p class="work-card-desc">Website e sistema de reservas para operador turístico na Costa de Prata — FareHarbor em produção.</p>
-            <span class="work-card-url" aria-hidden="true">viamar.pt <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2"><line x1="1" y1="6" x2="10" y2="6"/><polyline points="7,3 10,6 7,9"/></svg></span>
+            <span class="work-card-url" aria-hidden="true">viamar-berlenga.com <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2"><line x1="1" y1="6" x2="10" y2="6"/><polyline points="7,3 10,6 7,9"/></svg></span>
+          </div>
+        </a>
+      </div>
+      <div class="work-grid-item" data-reveal>
+        <a class="work-card" href="#" aria-label="Academia do Pro">
+          <div class="work-card-img work-card-img--placeholder">
+            <span class="work-card-initials" aria-hidden="true">AP</span>
+          </div>
+          <div class="work-card-body">
+            <div class="work-card-tag">B2C · Educação</div>
+            <h3 class="work-card-name">Academia do Pro</h3>
+            <p class="work-card-desc">Plataforma de aprendizagem e comunidade profissional — cursos, aulas ao vivo e gestão de membros.</p>
+            <span class="work-card-url soon" aria-hidden="true">em breve</span>
           </div>
         </a>
       </div>
@@ -844,6 +936,12 @@ footer{
           <line x1="1" y1="6" x2="10" y2="6"/><polyline points="7,3 10,6 7,9"/>
         </svg>
       </a>
+      <a class="contact-link" href="https://www.instagram.com/atlas_webdevelop" target="_blank" rel="noopener">
+        @atlas_webdevelop
+        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2">
+          <line x1="1" y1="6" x2="10" y2="6"/><polyline points="7,3 10,6 7,9"/>
+        </svg>
+      </a>
       <a class="contact-link" href="tel:+351913484429">
         +351 913 484 429
       </a>
@@ -854,8 +952,39 @@ footer{
 
 <!-- ═══ FOOTER ═══ -->
 <footer role="contentinfo">
-  <span class="footer-copy">© 2026 ATLAS — Engenharia Criativa</span>
-  <a class="footer-email" href="mailto:geral@atlas-web.pt">geral@atlas-web.pt</a>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="footer-logo" aria-label="ATLAS — início">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1398.71 264.45" role="img" aria-label="ATLAS">
+            <g><path d="M576.8,5.43h68.83v192h137.66v61.58h-206.49V5.43Z"/><path d="M486.55,259.02h-68.83V67.02h-137.66V5.43h206.49v253.58Z"/><path d="M1261.77,166.64c-14.49-2.17-27.71-5.07-39.67-8.69-11.95-3.62-22.28-8.63-30.97-15.03-8.69-6.4-15.4-14.31-20.11-23.73-4.71-9.42-7.06-20.89-7.06-34.42,0-30.43,9.42-52.17,28.26-65.21,18.84-13.04,48.54-19.56,89.12-19.56,17.63,0,33.51,1.51,47.64,4.53,14.13,3.02,26.08,7.91,35.86,14.67,9.78,6.76,17.33,15.64,22.64,26.63,5.31,10.99,7.97,24.45,7.97,40.39h-65.21c0-5.07-1.51-9.11-4.53-12.14-3.02-3.02-7.06-5.31-12.13-6.88-5.07-1.57-10.99-2.59-17.75-3.08-6.76-.48-13.77-.72-21.01-.72-26.81,0-40.21,5.32-40.21,15.94,0,2.66.9,4.83,2.72,6.52,1.81,1.69,5.01,3.08,9.6,4.17,4.58,1.09,10.8,2.17,18.66,3.26,7.85,1.09,17.69,2.48,29.53,4.17,15.7,2.17,29.89,5.13,42.56,8.88,12.68,3.75,23.55,8.88,32.6,15.4,9.06,6.52,16.06,14.73,21.01,24.63,4.95,9.91,7.43,22.1,7.43,36.59,0,28.74-9.6,49.51-28.8,62.31-19.2,12.8-49.33,19.2-90.38,19.2-17.88,0-34-1.51-48.36-4.53-14.37-3.02-26.57-7.91-36.59-14.67-10.02-6.76-17.69-15.63-23-26.63-5.32-10.99-7.97-24.45-7.97-40.39h65.21c0,5.07,1.57,9.12,4.71,12.14,3.14,3.02,7.37,5.32,12.68,6.88,5.31,1.57,11.47,2.6,18.47,3.08,7,.49,14.25.72,21.74.72,14,0,24.45-1.02,31.34-3.08,6.88-2.05,10.32-5.85,10.32-11.41,0-3.62-1.81-6.46-5.43-8.51-3.62-2.05-8.51-3.68-14.67-4.89-6.16-1.21-13.22-2.29-21.19-3.26-7.97-.96-16.3-2.05-25-3.26Z"/><polygon points="170.26 5.43 96.72 5.43 0 259.02 73.54 259.02 86.22 226.05 133.68 101.8 157.22 164.47 180.77 226.05 193.45 259.02 266.99 259.02 170.26 5.43"/><polygon points="1015.21 5.43 941.67 5.43 844.95 259.02 918.49 259.02 931.17 226.05 931.17 226.05 978.62 101.8 1002.17 164.47 1025.72 226.05 1025.72 226.05 1038.4 259.02 1111.94 259.02 1015.21 5.43"/></g>
+          </svg>
+        </a>
+        <p class="footer-tagline">Engenharia Criativa</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <div class="footer-col-label">Navegação</div>
+        <a href="#trabalho">Trabalho</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <div class="footer-contact">
+        <div class="footer-col-label">Contacto</div>
+        <div class="footer-contact-links">
+          <a href="mailto:geral@atlas-web.pt">geral@atlas-web.pt</a>
+          <a href="https://wa.me/351913484429?text=Ol%C3%A1%21+Gostaria+de+saber+mais+sobre+os+servi%C3%A7os+da+ATLAS." target="_blank" rel="noopener">WhatsApp</a>
+          <a class="footer-ig" href="https://www.instagram.com/atlas_webdevelop" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            @atlas_webdevelop
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 ATLAS — Engenharia Criativa</span>
+      <span class="footer-location">Lisboa, Portugal</span>
+    </div>
+  </div>
 </footer>
 
 <script src="js/gsap.min.js"></script>
